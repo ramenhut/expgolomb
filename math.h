@@ -37,6 +37,21 @@
 
 #include "base.h"
 
+#define EVX_MAX_INT64           (0x7FFFFFFFFFFFFFFF)
+#define EVX_MAX_INT32           (0x7FFFFFFF)
+#define EVX_MAX_INT16           (0x7FFF)
+#define EVX_MAX_INT8            (0x7F)
+
+#define EVX_MAX_UINT64          (0xFFFFFFFFFFFFFFFF)
+#define EVX_MAX_UINT32          (0xFFFFFFFF)
+#define EVX_MAX_UINT16          (0xFFFF)
+#define EVX_MAX_UINT8           (0xFF)
+
+#define EVX_MIN_INT64           (-EVX_MAX_INT64 - 1)
+#define EVX_MIN_INT32           (-EVX_MAX_INT32 - 1)
+#define EVX_MIN_INT16           (-EVX_MAX_INT16 - 1)
+#define EVX_MIN_INT8            (-EVX_MAX_INT8 - 1)
+
 const uint8 EVX_LOG2_BYTE_LUT[] = {
   0, 0, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3,
   4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
@@ -76,22 +91,22 @@ inline uint8 evx_log2(uint32 value) {
 }
 
 inline int8 evx_abs(int8 value) {
-  if (0x80 == value) {
-    return 0x7F;
+  if (value == EVX_MIN_INT8) {
+    return EVX_MAX_INT8;
   }
   return (value < 0 ? -value : value);
 }
 
 inline int16 evx_abs(int16 value) {
-  if (0x1000 == value) {
-    return 0x7FFF;
+  if (value == EVX_MIN_INT16) {
+    return EVX_MAX_INT16;
   }
   return (value < 0 ? -value : value);
 }
 
 inline int32 evx_abs(int32 value) {
-  if (0x10000000 == value) {
-    return 0x7FFFFFFF;
+  if (value == EVX_MIN_INT32) {
+    return EVX_MAX_INT32;
   }
   return (value < 0 ? -value : value);
 }
